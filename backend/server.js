@@ -11,6 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // routes
+const recipeRoutes = require("./routes/recipe");
+
+app.use("/api/recipes", recipeRoutes);
 
 //connection of mongodb
 mongoose
