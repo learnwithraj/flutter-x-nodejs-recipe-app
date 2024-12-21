@@ -2,7 +2,10 @@ const Category = require("./../models/Category");
 
 const handleGetCategory = async (req, res) => {
   try {
-    const category = await Category.find();
+    const category = await Category.find(
+      {},
+      { __v: 0, createdAt: 0, updatedAt: 0 }
+    );
     res.status(200).json(category);
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });

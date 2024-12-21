@@ -1,4 +1,5 @@
 const User = require("./../models/User");
+const { generateToken } = require("./../middlewares/auth");
 
 const handleCreateUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -27,7 +28,10 @@ const handleCreateUser = async (req, res) => {
 const handleLoginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne(
+      { email: email },
+      { __v: 0, createdAt: 0, updatedAt: 0 }
+    );
     if (!user || !(await user.comparePassword(password))) {
       return res
         .status(400)
@@ -120,5 +124,5 @@ module.exports = {
   handleLoginUser,
   handleGetUser,
   handleDeleteUser,
-  handleUpdateUser
+  handleUpdateUser,
 };

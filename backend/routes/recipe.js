@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {verifyAdmin}=require("./../middlewares/auth");
+const { verifyAdmin } = require("./../middlewares/auth");
 const {
   handleGetRecipe,
   handleCreateRecipe,
@@ -12,9 +12,9 @@ const {
 
 router.get("/", handleGetRecipe);
 router.get("/:id", handleGetRecipeById);
-router.get("/:categoryId", handleGetAllRecipesByCategory);
-router.post("/",verifyAdmin, handleCreateRecipe);
-router.put("/:id",verifyAdmin, handleUpdateRecipe);
-router.delete("/:id",verifyAdmin, handleDeleteRecipe);
+router.get("/category/:id", handleGetAllRecipesByCategory);
+router.post("/", verifyAdmin, handleCreateRecipe);
+router.put("/:id", verifyAdmin, handleUpdateRecipe);
+router.delete("/:id", verifyAdmin, handleDeleteRecipe);
 
 module.exports = router;

@@ -1,9 +1,13 @@
 const Recipe = require("./../models/Recipe");
+const Category = require("./../models/Category");
 
 const handleGetRecipe = async (req, res) => {
   try {
-    const recipes = await Recipe.find();
-    res.stauts(200).json(recipes);
+    const recipes = await Recipe.find(
+      {},
+      { __v: 0, createdAt: 0, updatedAt: 0 }
+    );
+    res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });
   }
@@ -81,7 +85,7 @@ const handleGetRecipeById = async (req, res) => {
 };
 
 const handleGetAllRecipesByCategory = async (req, res) => {
-  const { categoryId } = req.params;
+  const categoryId = req.params.id;
 
   try {
     const category = await Category.findById(categoryId);
@@ -89,9 +93,12 @@ const handleGetAllRecipesByCategory = async (req, res) => {
       return res.status(404).json({ message: "Category not found" });
     }
 
-    const recipes = await Recipe.find({
-      category: categoryId,
-    });
+    const recipes = await Recipe.find(
+      {
+        category: categoryId,
+      },
+      { __v: 0, createdAt: 0, updatedAt: 0 }
+    );
 
     if (!recipes.length) {
       return res.status(404).json({
