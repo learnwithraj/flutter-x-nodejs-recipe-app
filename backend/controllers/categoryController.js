@@ -44,9 +44,22 @@ const handleCreateCategory = async (req, res) => {
 };
 
 const handleUpdateCategory = async (req, res) => {
+  const id = req.params.id;
+  const { title, value, image } = req.body;
   try {
-    const category = await Category.find();
-    res.status(200).json(category);
+    const category = await Category.findById(id);
+    if (!category) {
+      return res.status(404).json({ message: "Category not Found" });
+    }
+    await Category.findByIdAndUpdate(id, {
+      title: title,
+      value: value,
+      image: imageUrl,
+    });
+    cache.flushAll();
+    res
+      .status(200)
+      .json({ status: true, message: "Category updated successfully" });
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });
   }

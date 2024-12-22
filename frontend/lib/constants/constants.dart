@@ -7,3 +7,5 @@ class KConstants {
   static Color secondaryDarkAppColor = Color(0xffD1D3D5);
   static Color textColor = Color(0xff484747);
 }
+
+const String kAppBaseUrl = "http://192.168.100.90:4000";

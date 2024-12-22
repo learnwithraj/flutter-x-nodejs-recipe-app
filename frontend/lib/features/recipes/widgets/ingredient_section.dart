@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/constants.dart';
 import 'package:frontend/features/recipes/widgets/ingredient_card.dart';
+import 'package:frontend/providers/recipe_provider.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class IngredientSection extends StatelessWidget {
   const IngredientSection({
@@ -10,6 +12,7 @@ class IngredientSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recipeProvider = Provider.of<RecipeProvider>(context);
     return Container(
       child: Column(
         children: [
@@ -33,8 +36,9 @@ class IngredientSection extends StatelessWidget {
             height: 40,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: recipeProvider.ingredients!.length,
                 itemBuilder: (context, index) {
+                  var ingredient = recipeProvider.ingredients![index];
                   return Container(
                     margin: EdgeInsets.only(right: 10),
                     padding: EdgeInsets.all(10),
@@ -44,7 +48,7 @@ class IngredientSection extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Ingredient",
+                        ingredient.name,
                         style: TextStyle(
                           color: KConstants.textColor,
                           fontWeight: FontWeight.bold,
@@ -58,7 +62,7 @@ class IngredientSection extends StatelessWidget {
           Expanded(
             child: GridView.builder(
                 // physics: BouncingScrollPhysics(),
-                itemCount: 10,
+                itemCount: recipeProvider.ingredients!.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
@@ -66,7 +70,8 @@ class IngredientSection extends StatelessWidget {
                   mainAxisExtent: 190,
                 ),
                 itemBuilder: (context, index) {
-                  return IngredientCard();
+                  return IngredientCard(
+                      ingredients: recipeProvider.ingredients![index]);
                 }),
           )
         ],

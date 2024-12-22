@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:frontend/models/ingredients_model.dart';
 
 import '../../../constants/constants.dart';
 
 class IngredientCard extends StatelessWidget {
-  const IngredientCard({super.key});
+  const IngredientCard({super.key, required this.ingredients});
+  final IngredientsModel ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +21,13 @@ class IngredientCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Image.network(
-                  fit: BoxFit.cover,
-                  "https://www.lovefoodhatewaste.com/sites/default/files/styles/twitter_card_image/public/2022-08/Potatoes-shutterstock-1721688538.jpg.webp?itok=4hLqSjDi"),
+              child: Image.network(fit: BoxFit.cover, ingredients.image),
             ),
           ),
         ),
         SizedBox(height: 8),
         Text(
-          "Potatoes",
+          ingredients.name,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,

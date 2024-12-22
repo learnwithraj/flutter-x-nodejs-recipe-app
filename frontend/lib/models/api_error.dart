@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final successModel = successModelFromJson(jsonString);
+//     final apiError = apiErrorFromJson(jsonString);
 
 import 'dart:convert';
 
-SuccessModel successModelFromJson(String str) => SuccessModel.fromJson(json.decode(str));
+ApiError apiErrorFromJson(String str) => ApiError.fromJson(json.decode(str));
 
-String successModelToJson(SuccessModel data) => json.encode(data.toJson());
+String apiErrorToJson(ApiError data) => json.encode(data.toJson());
 
-class SuccessModel {
+class ApiError {
     final bool status;
     final String message;
 
-    SuccessModel({
+    ApiError({
         required this.status,
         required this.message,
     });
 
-    factory SuccessModel.fromJson(Map<String, dynamic> json) => SuccessModel(
+    factory ApiError.fromJson(Map<String, dynamic> json) => ApiError(
         status: json["status"],
         message: json["message"],
     );
