@@ -13,6 +13,7 @@ class InspirationAppBar extends StatelessWidget {
     return Material(
       elevation: 1,
       child: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
         title: Text(
           "Inspiration",
