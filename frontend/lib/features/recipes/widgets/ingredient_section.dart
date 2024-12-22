@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/recipes/widgets/category_card.dart';
+import 'package:frontend/constants/constants.dart';
+import 'package:frontend/features/recipes/widgets/ingredient_card.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../constants/constants.dart';
-
-class CategorySection extends StatelessWidget {
-  const CategorySection({
+class IngredientSection extends StatelessWidget {
+  const IngredientSection({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: Column(
         children: [
           SizedBox(height: 10),
@@ -31,6 +29,32 @@ class CategorySection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 15),
+          SizedBox(
+            height: 40,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: KConstants.secondary,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Ingredient",
+                        style: TextStyle(
+                          color: KConstants.textColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+          SizedBox(height: 15),
           Expanded(
             child: GridView.builder(
                 // physics: BouncingScrollPhysics(),
@@ -39,9 +63,10 @@ class CategorySection extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
+                  mainAxisExtent: 190,
                 ),
                 itemBuilder: (context, index) {
-                  return CategoryCard();
+                  return IngredientCard();
                 }),
           )
         ],

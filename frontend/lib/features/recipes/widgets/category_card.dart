@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
@@ -20,7 +19,6 @@ class CategoryCard extends StatelessWidget {
               width: 175,
               height: 150,
               decoration: BoxDecoration(
-                color: Colors.red,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Image.network(
