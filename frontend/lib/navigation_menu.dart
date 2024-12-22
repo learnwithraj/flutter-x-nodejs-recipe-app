@@ -12,45 +12,51 @@ class NavigationMenu extends StatelessWidget {
     return Consumer<NavigationProvider>(
         builder: (context, navigationProvider, child) {
       return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconSize: 28,
-          currentIndex: navigationProvider.selectedIndex,
-          selectedItemColor: KConstants.primary,
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: TextStyle(
-            color: KConstants.primary,
-            fontWeight: FontWeight.w600,
+        bottomNavigationBar: PreferredSize(
+          preferredSize: Size.fromHeight(75),
+          child: Material(
+            elevation: 7,
+            child: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              elevation: 7,
+              iconSize: 24,
+              currentIndex: navigationProvider.selectedIndex,
+              selectedItemColor: KConstants.primary,
+              unselectedItemColor: Colors.grey,
+              type: BottomNavigationBarType.fixed,
+              selectedLabelStyle: TextStyle(
+                color: KConstants.primary,
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+              onTap: (value) {
+                navigationProvider.onTap(value);
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Iconsax.home_1,
+                  ),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Iconsax.bubble,
+                  ),
+                  label: "Inspirations",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Iconsax.user,
+                  ),
+                  label: "Account",
+                ),
+              ],
+            ),
           ),
-          unselectedLabelStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-          onTap: (value) {
-            navigationProvider.onTap(value);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.home_1,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.bubble,
-              ),
-              label: "Inspirations",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.user,
-              ),
-              label: "Account",
-            ),
-          ],
         ),
         body: navigationProvider.screens
             .elementAt(navigationProvider.selectedIndex),

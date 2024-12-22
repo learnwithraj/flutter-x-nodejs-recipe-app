@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/recipes/screens/home.dart';
 
 class NavigationProvider with ChangeNotifier {
   var selectedIndex = 0;
   final screens = [
-    Container(
-      color: Colors.green,
-    ),
+    HomeScreen(),
     Container(
       color: Colors.red,
     ),
