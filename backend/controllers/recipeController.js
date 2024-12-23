@@ -181,6 +181,82 @@ const handleGetRecipesByIngredients = async (req, res) => {
     });
   }
 };
+
+const handleGetPopularRecipes = async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10; // Default limit to 10
+
+  try {
+    // Fetch all recipes sorted by rating and reviews in descending order
+    const popularRecipes = await Recipe.find(
+      {},
+      { __v: 0, createdAt: 0, updatedAt: 0 }
+    )
+      .sort({ rating: -1, reviews: -1 }) // Sort by rating and reviews
+      .limit(limit) // Limit the number of results
+      .populate("category", { __v: 0, createdAt: 0, updatedAt: 0 }); // Populate category details if needed
+
+    if (!popularRecipes.length) {
+      return res.status(404).json({
+        status: false,
+        message: "No popular recipes found",
+      });
+    }
+
+    res.status(200).json(popularRecipes);
+  } catch (error) {
+    res.status(500).json({ status: false, message: error.message });
+  }
+};
+
+const handleGetTrendingRecipes = async (req, res) => {
+  try {
+    // Fetch trending recipes based on multiple factors such as rating, reviews, calorie, time, and image.
+    const trendingRecipes = await Recipe.find()
+      .sort({ rating: -1, reviews: -1, calorie: -1, time: 1, createdAt: 1 }) // Sort by rating, reviews (desc), calorie (desc), and time (asc)
+      .limit(5)
+      .populate("category");
+
+    if (!trendingRecipes.length) {
+      return res
+        .status(404)
+        .json({ status: false, message: "No trending recipes found" });
+    }
+
+    return res.status(200).json(trendingRecipes);
+  } catch (error) {
+    return res.status(500).json({ status: false, message: error.message });
+  }
+};
+
+const handleGetChefChoiceRecipes = async (req, res) => {
+  try {
+    // Fetch trending recipes based on multiple factors such as rating, reviews, calorie, time, and image.
+    const masterChefsChoice = await Recipe.find({})
+      .sort({
+        rating: -1, // Sort by rating in descending order
+        reviews: -1, // Sort by reviews in descending order
+        time: 1, // Sort by time in ascending order (shorter time first)
+        calorie: 1, // Sort by calorie in ascending order (lower calories first)
+        createdAt: -1, // Sort by creation date (newest first)
+      })
+      .limit(5)
+      .populate("category");
+
+    if (!masterChefsChoice.length) {
+      return res
+        .status(404)
+        .json({
+          status: false,
+          message: "No Master Chef's choice recipes found",
+        });
+    }
+
+    return res.status(200).json(masterChefsChoice);
+  } catch (error) {
+    return res.status(500).json({ status: false, message: error.message });
+  }
+};
+
 module.exports = {
   handleGetRecipe,
   handleCreateRecipe,
@@ -190,4 +266,7 @@ module.exports = {
   handleGetAllRecipesByCategory,
   handleGetAllIngredients,
   handleGetRecipesByIngredients,
+  handleGetPopularRecipes,
+  handleGetTrendingRecipes,
+  handleGetChefChoiceRecipes
 };

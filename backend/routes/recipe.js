@@ -10,6 +10,9 @@ const {
   handleGetAllRecipesByCategory,
   handleGetAllIngredients,
   handleGetRecipesByIngredients,
+  handleGetPopularRecipes,
+  handleGetTrendingRecipes,
+  handleGetChefChoiceRecipes,
 } = require("./../controllers/recipeController");
 
 router.get("/", handleGetRecipe);
@@ -19,6 +22,9 @@ router.post("/", verifyAdmin, handleCreateRecipe);
 router.put("/:id", verifyAdmin, handleUpdateRecipe);
 router.delete("/:id", verifyAdmin, handleDeleteRecipe);
 router.get("/ingredients/all", handleGetAllIngredients);
-router.get("/ingredients/all/recipes/:ingredient", handleGetRecipesByIngredients);
+router.get(  "/ingredients/all/recipes/:ingredient",  handleGetRecipesByIngredients);
+router.get("/popular/all", handleGetPopularRecipes);
+router.get("/trending/all", handleGetTrendingRecipes);
+router.get("/chef-choice/all", handleGetChefChoiceRecipes);
 
 module.exports = router;

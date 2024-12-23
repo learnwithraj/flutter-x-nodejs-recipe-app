@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -82,7 +81,7 @@ class HomeAppBar extends StatelessWidget {
               child: const Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "INGREDIENTS",
+                    "COLLECTIONS",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
