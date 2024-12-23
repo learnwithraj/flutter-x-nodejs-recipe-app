@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/auth/screens/account.dart';
 import 'package:frontend/features/recipes/screens/home.dart';
 import 'package:frontend/features/recipes/screens/inspiration_screen.dart';
 
@@ -7,9 +8,7 @@ class NavigationProvider with ChangeNotifier {
   final screens = [
     HomeScreen(),
     InspirationScreen(),
-    Container(
-      color: Colors.pink,
-    ),
+    AccountScreen(),
   ];
 
   void onTap(int index) {

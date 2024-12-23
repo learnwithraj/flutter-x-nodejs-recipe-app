@@ -17,7 +17,18 @@ class CategorySection extends StatelessWidget {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     return categoryProvider.isLoading
         ? Center(
-            child: CircularProgressIndicator(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(color: KConstants.primary),
+                const SizedBox(height: 16),
+                Text(
+                  'Loading delicious recipes...',
+                  style: TextStyle(
+                      color: KConstants.primary, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
           )
         : categoryProvider.categories!.isEmpty ||
                 categoryProvider.categories == null

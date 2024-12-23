@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/constants.dart';
 import 'package:frontend/providers/navigation_provider.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class NavigationMenu extends StatelessWidget {
