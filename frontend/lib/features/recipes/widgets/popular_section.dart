@@ -20,7 +20,7 @@ class PopularRecipesSection extends StatelessWidget {
               children: [
                 Text(
                   'Popular Recipes',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
@@ -172,21 +172,21 @@ class PopularRecipesSection extends StatelessWidget {
                                     ),
                                   ),
                                   ...[
-                                  SizedBox(width: 8),
-                                  Icon(
-                                    Icons.local_fire_department,
-                                    size: 16,
-                                    color: Colors.orange,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    '${recipe.calorie} cal',
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 12,
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      Icons.local_fire_department,
+                                      size: 16,
+                                      color: Colors.orange,
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(width: 4),
+                                    Text(
+                                      '${recipe.calorie} cal',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ],
                               ),
                             ],

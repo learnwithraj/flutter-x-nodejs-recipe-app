@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
           child: TabBarView(
             children: [
               CategorySection(),
-              PopularRecipesSection(), // Or FeaturedCollectionsSection() or RecentRecipesSection()
+              PopularRecipesSection(), 
             ],
           ),
         ),

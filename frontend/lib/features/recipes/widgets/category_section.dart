@@ -57,6 +57,7 @@ class CategorySection extends StatelessWidget {
                               crossAxisCount: 2,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
+                              mainAxisExtent: 220,
                             ),
                             itemBuilder: (context, index) {
                               CategoryModel category =

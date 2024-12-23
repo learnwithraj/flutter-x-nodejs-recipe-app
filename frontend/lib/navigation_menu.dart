@@ -38,19 +38,17 @@ class NavigationMenu extends StatelessWidget {
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Iconsax.home_1,
+                    Icons.home,
                   ),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Iconsax.bubble,
-                  ),
+                  icon: Icon(Icons.lightbulb_outline_rounded),
                   label: "Inspirations",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Iconsax.user,
+                    Icons.person,
                   ),
                   label: "Account",
                 ),

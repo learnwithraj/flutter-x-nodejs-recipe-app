@@ -20,15 +20,15 @@ class InspirationScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 15),
+            SizedBox(height: 5),
             //trending section here
             TrendingSection(),
             //you may like section here
 
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             YouMayLikeSection(),
             //master chef choice section here
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             ChefChoiceSection(),
           ],
         ),
