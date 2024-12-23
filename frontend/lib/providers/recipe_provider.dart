@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/constants.dart';
 import 'package:frontend/models/api_error.dart';
-import 'package:frontend/models/ingredients_model.dart';
 import 'package:frontend/models/recipe_model.dart'; // Make sure to import the RecipeModel
 import 'package:http/http.dart' as http;
 
@@ -21,7 +20,6 @@ class RecipeProvider with ChangeNotifier {
   }
 
   RecipeProvider() {
-    fetchIngredients();
     fetchPopularRecipes();
     fetchTrendingRecipes();
     fetchChefChoiceRecipes();
@@ -54,51 +52,13 @@ class RecipeProvider with ChangeNotifier {
     }
   }
 
-  List<IngredientsModel>? _ingredients;
-
-  // Getters
-  List<IngredientsModel>? get ingredients => _ingredients;
-
-  void clearIngredients() {
-    _ingredients = [];
-    notifyListeners();
-  }
-
-  // New method to fetch recipes based on category ID
-  Future<void> fetchIngredients() async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
-    try {
-      final response =
-          await http.get(Uri.parse("$kAppBaseUrl/api/recipes/ingredients/all"));
-
-      if (response.statusCode == 200) {
-        _ingredients = ingredientsModelFromJson(
-            response.body); // Assuming recipeModelFromJson is defined
-        _error = null; // No error
-      } else {
-        _error =
-            ApiError(status: false, message: "Failed to load ingredients.");
-        _ingredients = [];
-      }
-    } catch (e) {
-      _error = ApiError(status: false, message: e.toString());
-      _ingredients = [];
-    } finally {
-      _isLoading = false;
-      notifyListeners(); // Notify UI of state change
-    }
-  }
-
   List<RecipeModel>? _popularRecipes;
 
   // Getters
   List<RecipeModel>? get popularRecipes => _popularRecipes;
 
   void clearPopularRecipes() {
-    _ingredients = [];
+    _popularRecipes = [];
     notifyListeners();
   }
 
@@ -141,7 +101,7 @@ class RecipeProvider with ChangeNotifier {
   List<RecipeModel>? get trendingRecipes => _trendingRecipes;
 
   void clearTrendingRecipes() {
-    _ingredients = [];
+    _trendingRecipes = [];
     notifyListeners();
   }
 
@@ -184,7 +144,7 @@ class RecipeProvider with ChangeNotifier {
   List<RecipeModel>? get chefChoiceRecipe => _chefChoiceRecipe;
 
   void clearChefChoiceRecipes() {
-    _ingredients = [];
+    _chefChoiceRecipe = [];
     notifyListeners();
   }
 
@@ -210,49 +170,6 @@ class RecipeProvider with ChangeNotifier {
     } catch (e) {
       _error = ApiError(status: false, message: e.toString());
       _chefChoiceRecipe = [];
-    } finally {
-      _isLoading = false;
-      notifyListeners(); // Notify UI of state change
-    }
-  }
-
-  // // Method to refresh categories if needed
-  // Future<void> refetchRecipes() async {
-  //   await fetchRecipesByCategory();
-  // }
-
-  List<RecipeModel>? _ingredientsRecipe;
-
-  // Getters
-  List<RecipeModel>? get ingredientsRecipe => _ingredientsRecipe;
-
-  void clearIngredientsWithRecipe() {
-    _ingredients = [];
-    notifyListeners();
-  }
-
-  // New method to fetch recipes based on category ID
-  Future<void> fetchIngredientsWithRecipe(String ingredient) async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
-    try {
-      final response = await http.get(Uri.parse(
-          "$kAppBaseUrl/api/recipes/ingredients/all/recipes/$ingredient"));
-
-      if (response.statusCode == 200) {
-        _ingredientsRecipe = recipeModelFromJson(
-            response.body); // Assuming recipeModelFromJson is defined
-        _error = null; // No error
-      } else {
-        _error = ApiError(
-            status: false, message: "Failed to load ingredients with recipe.");
-        _ingredientsRecipe = [];
-      }
-    } catch (e) {
-      _error = ApiError(status: false, message: e.toString());
-      _ingredientsRecipe = [];
     } finally {
       _isLoading = false;
       notifyListeners(); // Notify UI of state change

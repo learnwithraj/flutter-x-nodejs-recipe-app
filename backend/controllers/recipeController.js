@@ -113,74 +113,6 @@ const handleGetAllRecipesByCategory = async (req, res) => {
   }
 };
 
-const handleGetAllIngredients = async (req, res) => {
-  try {
-    // Using find() instead of aggregate() first to get all recipes
-    const recipes = await Recipe.find({}, "ingredients");
-
-    // Extract and flatten ingredients from all recipes
-    const allIngredients = recipes.reduce((acc, recipe) => {
-      return acc.concat(recipe.ingredients || []);
-    }, []);
-
-    // Remove duplicates and format the response
-    const uniqueIngredients = Array.from(
-      new Set(allIngredients.map((ing) => ing.name))
-    )
-      .map((name) => {
-        const ingredient = allIngredients.find((ing) => ing.name === name);
-        return {
-          name: ingredient.name,
-          amount: ingredient.amount,
-          image: ingredient.image || null,
-        };
-      })
-      .sort((a, b) => a.name.localeCompare(b.name));
-
-    return res.status(200).json(uniqueIngredients);
-  } catch (error) {
-    console.error("Error details:", error);
-    return res.status(500).json({
-      status: false,
-      message: error.message,
-    });
-  }
-};
-
-const handleGetRecipesByIngredients = async (req, res) => {
-  try {
-    const { ingredient } = req.params;
-
-    if (!ingredient) {
-      return res.status(400).json({
-        status: false,
-        message: "Please provide an ingredient",
-        error: "Invalid input",
-      });
-    }
-
-    // Find recipes that contain the ingredient
-    const recipes = await Recipe.find({
-      "ingredients.name": {
-        $regex: new RegExp(ingredient, "i"), // Case-insensitive search
-      },
-    }).populate("category");
-
-    if (!recipes.length) {
-      return res.status(404).json({
-        status: false,
-        message: "No recipes found with this ingredient",
-      });
-    }
-
-    return res.status(200).json(recipes);
-  } catch (error) {
-    return res.status(500).json({
-      status: false,
-      message: error.message,
-    });
-  }
-};
 
 const handleGetPopularRecipes = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10; // Default limit to 10
@@ -264,8 +196,6 @@ module.exports = {
   handleDeleteRecipe,
   handleGetRecipeById,
   handleGetAllRecipesByCategory,
-  handleGetAllIngredients,
-  handleGetRecipesByIngredients,
   handleGetPopularRecipes,
   handleGetTrendingRecipes,
   handleGetChefChoiceRecipes
